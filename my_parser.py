@@ -8,13 +8,13 @@ def parse_recommended_books(url):
     book_list = soup.find_all('div', class_='item')
     with open("recommended_books.txt", "w", encoding='utf-8') as f:
         for book in book_list:
-            name = book.find('div', class_='name').contents[0].contents[0]
+            title = book.find('div', class_='name').contents[0].contents[0]
             link = book.find('div', class_='name').contents[0]['href']
             if not book.find('div', class_='author').contents[0].contents:
                 author = ''
             else:
                 author = book.find('div', class_='author').contents[0].contents[0]
-            f.write(f"{author} - {name} - {'https://flibusta.club' + link}\n")
+            f.write(f"{author} - {title} - {'https://flibusta.club' + link}\n")
 
 
 base_url = "https://flibusta.club/"
