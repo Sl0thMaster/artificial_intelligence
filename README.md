@@ -1,2 +1,0 @@
-# artificial_intelligence
- 
