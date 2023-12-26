@@ -63,7 +63,7 @@ def search(title):
                     is_book = is_title = True
                 if is_book:
                     if is_title:
-                        f.write(f"b - {book.contents[0]} - {'https://flibusta.club' + book['href']} - ")
+                        f.write(f"book - {book.contents[0]} - {'https://flibusta.club' + book['href']} - ")
                     else:
                         if book.contents:
                             f.write(f"{book.contents[0]}\n")
@@ -71,7 +71,24 @@ def search(title):
                             f.write('\n')
                     is_title = False
                 else:
-                    f.write(f"a - {book.contents[0]} - {'https://flibusta.club' + book['href']}\n")
+                    f.write(f"author - {book.contents[0]} - {'https://flibusta.club' + book['href']}\n")
+
+
+def books_by_author(url):
+    response = requests.get(url)
+    soup = bs(response.content, 'html.parser')
+    books = soup.find_all('div', class_=lambda x: x in ['genre__name', 'book__line'])
+    with open("author_books.txt", "w", encoding='utf-8') as f:
+        for book in books:
+            if book['class'][0] == 'genre__name':
+                genres = book.find_all('a', class_="genre_link")
+                genre = ''
+                for line in genres:
+                    genre += line.contents[0] + ' '
+            else:
+                title = book.find('a').contents[0]
+                link = book.find('a')['href']
+                f.write(f'{genre}- {title} - {"https://flibusta.club" + link}\n')
 
 
 base_url = "https://flibusta.club/"

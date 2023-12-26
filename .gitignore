@@ -3,3 +3,5 @@
 recommended_books.txt
 search_results.txt
 test.py
+*.pyc
+author_books.txt
