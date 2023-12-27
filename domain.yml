@@ -33,6 +33,7 @@ entities:
   - TEMPLATE
   - ASK
   - NUMBER
+  - SEARCH_BY
 
 slots:
   TEMPLATE:
@@ -45,14 +46,20 @@ slots:
     type: list
   NUMBER:
     type: text
+  SEARCH_BY:
+    type: categorical
+    values:
+      - по автору
+      - по книге
 
 actions:
   - action_show_popular_books
   - action_show_genres
-  - action_show_books_by_genre
-  - action_show_search
+  - action_show_subgenres
+  - action_show_books_by_subgenre
   - action_show_found_books
   - action_show_found_authors
+  - action_show_books_by_author
   - action_show_selected_book
   - action_give_book
 
