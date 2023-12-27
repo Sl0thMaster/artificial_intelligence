@@ -19,9 +19,9 @@ class ActionShowPopularBooks(Action):
         with open("cache/recommended_books.txt", "r", encoding='utf-8') as f:
             books = f.readlines()
             selected_book_numbers = []
-            while len(selected_book_numbers) < 7:
+            while len(selected_book_numbers) < BOOKS_TO_SHOW:
                 book_number = random.randint(0, len(books) - 1)
-                if not book_number in selected_book_numbers:
+                if book_number not in selected_book_numbers:
                     selected_book_numbers.append(book_number)
             utter = ''
             new_books = ''
@@ -37,7 +37,22 @@ class ActionShowPopularBooks(Action):
         return []
 
 
-# - action_show_genres
+class ActionShowGenres(Action):
+    def name(self) -> Text:
+        return "action_show_genres"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        with open("cache/genres.txt", "r", encoding='utf-8') as f:
+            genres = f.readlines()
+            utter = ''
+            for i in range(len(genres)):
+                utter += str(i + 1) + ' ' + genres[i]
+        dispatcher.utter_message(text=utter)
+        return []
+
+
 # - action_show_books_by_genre
 # - action_show_search
 # - action_show_found_books
