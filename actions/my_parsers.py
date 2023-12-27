@@ -96,12 +96,13 @@ if __name__ == "__main__":
     response = requests.get(base_url + 'g/')
     soup = bs(response.content, 'html.parser')
     p_genre = soup.find('div', class_='p_genre')
-
-    with open("cache/genres.txt", "w", encoding='utf-8') as f:
+    with open("cache/subgenres.txt", "w", encoding='utf-8') as f:
         genres_count = 0
+        genres = ''
         for line in p_genre:
             if genres_count % 2 == 0:
                 genre = line.contents[0]
+                genres += genre + '\n'
             else:
                 subgenres = line.find_all('a')
                 subgenres_count = 0
@@ -112,6 +113,8 @@ if __name__ == "__main__":
                         f.write(f"{genre} - {name} - {base_url + link}\n")
                     subgenres_count += 1
             genres_count += 1
+    with open("cache/genres.txt", "w", encoding='utf-8') as f:
+        f.write(genres)
 
 
 # parse_recommended_books(url)
