@@ -1,12 +1,10 @@
 
 .idea/
-recommended_books.txt
-search_results.txt
 test.py
 *.pyc
+recommended_books.txt
+search_results.txt
 author_books.txt
-actions/cache/books_by_author.txt
-actions/cache/subgenres.txt
-actions/cache/subgenres.txt
-actions/cache/subgenres.txt
-actions/cache/subgenres.txt
+books_by_author.txt
+subgenres.txt
+genres.txt
