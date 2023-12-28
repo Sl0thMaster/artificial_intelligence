@@ -60,6 +60,10 @@ stories:
     - SEARCH_BY: автор
   - action: utter_your_ask
   - intent: ask
+  - slot_was_set:
+    - TEMPLATE: поиск
+    - SEARCH_BY: автор
+    - ASK
   - action: action_show_found_authors
   - intent: choose_number
   - action: action_show_books_by_author
