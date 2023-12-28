@@ -9,72 +9,6 @@ nlu:
     - здарова
     - салют
 
-#- intent: goodbye
-#  examples: |
-#    - cu
-#    - good by
-#    - cee you later
-#    - good night
-#    - bye
-#    - goodbye
-#    - have a nice day
-#    - see you around
-#    - bye bye
-#    - see you later
-#
-#- intent: affirm
-#  examples: |
-#    - yes
-#    - y
-#    - indeed
-#    - of course
-#    - that sounds good
-#    - correct
-#
-#- intent: deny
-#  examples: |
-#    - no
-#    - n
-#    - never
-#    - I don't think so
-#    - don't like that
-#    - no way
-#    - not really
-#
-#- intent: mood_great
-#  examples: |
-#    - perfect
-#    - great
-#    - amazing
-#    - feeling like a king
-#    - wonderful
-#    - I am feeling very good
-#    - I am great
-#    - I am amazing
-#    - I am going to save the world
-#    - super stoked
-#    - extremely good
-#    - so so perfect
-#    - so good
-#    - so perfect
-#
-#- intent: mood_unhappy
-#  examples: |
-#    - my day was horrible
-#    - I am sad
-#    - I don't feel very well
-#    - I am disappointed
-#    - super sad
-#    - I'm so sad
-#    - sad
-#    - very sad
-#    - unhappy
-#    - not good
-#    - not very good
-#    - extremly sad
-#    - so saad
-#    - so sad
-
 - intent: bot_challenge
   examples: |
     - ты бот?
@@ -85,3 +19,46 @@ nlu:
     - что ты?
     - что ты такое?
     - кто ты такой?
+
+- intent: choose_number
+  examples: |
+    - [1](NUMBER)
+    - [2](NUMBER)
+    - [23](NUMBER)
+    - [один](NUMBER:1)
+    - [первый](NUMBER:1)
+    - [четыре](NUMBER:4)
+    - [четвертый](NUMBER:4)
+    - [девять](NUMBER:9)
+    - [девятый](NUMBER:9)
+
+- intent: choose_template
+  examples: |
+    - [искать](TEMPLATE:поиск)
+    - по [поиску](TEMPLATE:поиск)
+    - [поиск](TEMPLATE:поиск)
+    - [найти](TEMPLATE:поиск)
+    - [найти](TEMPLATE:поиск) книгу
+    - [найти](TEMPLATE:поиск) определенную книгу
+    - [жанр](TEMPLATE:жанр)
+    - по [жанру](TEMPLATE:жанр)
+    - подобрать по [жанру](TEMPLATE:жанр)
+    - [рекомендация](TEMPLATE:рекомендация)
+    - мне [порекомендовать](TEMPLATE:рекомендация)
+    - нуждаюсь в [рекомендации](TEMPLATE:рекомендация)
+    - по [рекомендации](TEMPLATE:рекомендация)
+    - [порекомендуй](TEMPLATE:рекомендация) мне книгу
+    - [посоветуй](TEMPLATE:рекомендация) мне что-нибудь
+
+- intent: choose_search_by
+  examples: |
+    - [автор](SEARCH_BY:автор)
+    - по [автору](SEARCH_BY:автор)
+    - [название](SEARCH_BY:название)
+    - по [названию](SEARCH_BY:название)
+
+- intent: ask
+  examples: |
+    - [чехов](ASK:[чехов])
+    - [мертвые души](ASK:[мертвые, души])
+    - [александр сергеевич пушкин](ASK:[александр, сергеевич, пушкин])
