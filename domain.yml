@@ -1,33 +1,25 @@
 version: "3.1"
 
-#intents:
-#  - greet
-#  - goodbye
-#  - affirm
-#  - deny
-#  - mood_great
-#  - mood_unhappy
-#  - bot_challenge
-#
-#responses:
-#  utter_greet:
-#  - text: "Hey! How are you?"
-#
-#  utter_cheer_up:
-#  - text: "Here is something to cheer you up:"
-#    image: "https://i.imgur.com/nGF1K8f.jpg"
-#
-#  utter_did_that_help:
-#  - text: "Did that help you?"
-#
-#  utter_happy:
-#  - text: "Great, carry on!"
-#
-#  utter_goodbye:
-#  - text: "Bye"
-#
-#  utter_iamabot:
-#  - text: "I am a bot, powered by Rasa."
+intents:
+  - greet
+  - bot_challenge
+  - choose_number
+  - choose_template
+  - choose_search_by
+  - ask
+
+responses:
+  utter_greet:
+  - text: "Привет, я - бот для поиска книг\nВы хотите найти определенную книгу, подобрать по жанру или вам что-то порекомендовать?"
+
+  utter_iamabot:
+  - text: "Я бот, сделанный на RASA"
+
+  utter_choose_search_by:
+    - text: "Вы хотите искать по автору или по названию?"
+
+  utter_your_ask:
+    - text: "Ваш запрос?"
 
 entities:
   - TEMPLATE
@@ -49,8 +41,8 @@ slots:
   SEARCH_BY:
     type: categorical
     values:
-      - по автору
-      - по книге
+      - автор
+      - название
 
 actions:
   - action_show_popular_books
@@ -61,7 +53,7 @@ actions:
   - action_show_found_authors
   - action_show_books_by_author
   - action_show_selected_book
-  - action_give_book
+#  - action_give_book
 
 session_config:
   session_expiration_time: 20
