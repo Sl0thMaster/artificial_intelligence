@@ -48,7 +48,7 @@ class ActionShowSubgenres(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        choice = tracker.get_slot("NUMBER")
+        choice = int(tracker.get_slot("NUMBER"))
         update_genres_and_subgenres()
         with open("cache/genres.txt", "r", encoding='utf-8') as f:
             genres = f.readlines()
@@ -76,7 +76,7 @@ class ActionShowBooksBySubgenre(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        choice = tracker.get_slot("NUMBER")
+        choice = int(tracker.get_slot("NUMBER"))
         with open("cache/subgenres.txt", "r", encoding='utf-8') as f:
             subgenres = f.readlines()
             link = subgenres[choice - 1][subgenres[choice - 1].rfind(' - ') + 3:-1]
@@ -149,7 +149,7 @@ class ActionShowBooksByAuthor(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        choice = tracker.get_slot("NUMBER")
+        choice = int(tracker.get_slot("NUMBER"))
         with open("cache/search_results.txt", "r", encoding='utf-8') as f:
             results = f.readlines()
         link = results[choice - 1][results[choice - 1].rfind(' - ') + 3:-1]
@@ -170,7 +170,7 @@ class ActionShowSelectedBook(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        choice = tracker.get_slot("NUMBER")
+        choice = int(tracker.get_slot("NUMBER"))
         template = tracker.get_slot("TEMPLATE")
         search_by = tracker.get_slot("SEARCH_BY")
         if template == 'жанр':
