@@ -2,29 +2,66 @@ version: "3.1"
 
 stories:
 
-- story: happy path
+- story: recommendation
   steps:
   - intent: greet
   - action: utter_greet
-  - intent: mood_great
-  - action: utter_happy
+  - intent: choose_template
+  - slot_was_set:
+    - TEMPLATE: рекомендация
+  - action: action_show_popular_books
+  - intent: choose_number
+  - action: action_show_selected_book
 
-- story: sad path 1
+- story: find_by_genre
   steps:
   - intent: greet
   - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: affirm
-  - action: utter_happy
+  - intent: choose_template
+  - slot_was_set:
+    - TEMPLATE: жанр
+  - action: action_show_genres
+  - intent: choose_number
+  - action: action_show_subgenres
+  - intent: choose_number
+  - action: action_show_books_by_subgenre
+  - intent: choose_number
+  - action: action_show_selected_book
 
-- story: sad path 2
+- story: search_by_title
   steps:
   - intent: greet
   - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: deny
-  - action: utter_goodbye
+  - intent: choose_template
+  - slot_was_set:
+    - TEMPLATE: поиск
+  - action: utter_choose_search_by
+  - intent: choose_search_by
+  - slot_was_set:
+    - TEMPLATE: поиск
+    - SEARCH_BY: название
+  - action: utter_your_ask
+  - intent: ask
+  - action: action_show_found_books
+  - intent: choose_number
+  - action: action_show_selected_book
+
+- story: search_by_author
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: choose_template
+  - slot_was_set:
+    - TEMPLATE: поиск
+  - action: utter_choose_search_by
+  - intent: choose_search_by
+  - slot_was_set:
+    - TEMPLATE: поиск
+    - SEARCH_BY: автор
+  - action: utter_your_ask
+  - intent: ask
+  - action: action_show_found_authors
+  - intent: choose_number
+  - action: action_show_books_by_author
+  - intent: choose_number
+  - action: action_show_selected_book
