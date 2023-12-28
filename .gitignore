@@ -1,5 +1,6 @@
 
+.rasa/
 .idea/
 test.py
 *.pyc
-actions/cache
+actions/cache/
