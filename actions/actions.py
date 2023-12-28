@@ -3,6 +3,8 @@ from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from my_parsers import *
 
+choose_number = 'Выберите номер из списка ниже:\n'
+
 
 class ActionShowPopularBooks(Action):
     def name(self) -> Text:
@@ -18,7 +20,7 @@ class ActionShowPopularBooks(Action):
             utter = ''
             for i in range(len(books)):
                 utter += str(i + 1) + ' ' + books[i][:books[i].rfind(' - ')] + '\n'
-        dispatcher.utter_message(text=utter)
+        dispatcher.utter_message(text=choose_number + utter)
         return []
 
 
@@ -35,7 +37,7 @@ class ActionShowGenres(Action):
             utter = ''
             for i in range(len(genres)):
                 utter += str(i + 1) + ' ' + genres[i]
-        dispatcher.utter_message(text=utter)
+        dispatcher.utter_message(text=choose_number + utter)
         return []
 
 
@@ -63,7 +65,7 @@ class ActionShowSubgenres(Action):
                     counter += 1
         with open("cache/subgenres.txt", "w", encoding='utf-8') as f:
             f.write(new_subgenres)
-        dispatcher.utter_message(text=utter)
+        dispatcher.utter_message(text=choose_number + utter)
         return []
 
 
@@ -84,7 +86,7 @@ class ActionShowBooksBySubgenre(Action):
             utter = ''
             for i in range(len(books)):
                 utter += str(i + 1) + ' ' + books[i][:books[i].rfind(' - ')] + '\n'
-        dispatcher.utter_message(text=utter)
+        dispatcher.utter_message(text=choose_number + utter)
         return []
 
 
@@ -110,7 +112,7 @@ class ActionShowFoundBooks(Action):
                     utter += str(counter) + ' ' + line[line.find(' - ') + 3: line.rfind(' - ')] + '\n'
                     f.write(line)
                     counter += 1
-        dispatcher.utter_message(text=utter)
+        dispatcher.utter_message(text=choose_number + utter)
         return []
 
 
@@ -136,7 +138,7 @@ class ActionShowFoundAuthors(Action):
                     utter += str(counter) + ' ' + line[line.find(' - ') + 3: line.rfind(' - ')] + '\n'
                     f.write(line)
                     counter += 1
-        dispatcher.utter_message(text=utter)
+        dispatcher.utter_message(text=choose_number + utter)
         return []
 
 
@@ -157,7 +159,7 @@ class ActionShowBooksByAuthor(Action):
         utter = ''
         for i in range(len(books)):
             utter += str(i + 1) + ' ' + books[i][:books[i].rfind(' - ')] + '\n'
-        dispatcher.utter_message(text=utter)
+        dispatcher.utter_message(text=choose_number + utter)
         return []
 
 
@@ -180,7 +182,7 @@ class ActionShowSelectedBook(Action):
                 books = f.readlines()
                 url = books[choice - 1][books[choice - 1].rfind(' - ') + 3:-1]
         else:
-            if search_by == 'по книге':
+            if search_by == 'название':
                 with open("cache/search_results.txt", "r", encoding='utf-8') as f:
                     books = f.readlines()
                     url = books[choice - 1][books[choice - 1].rfind(' - ') + 3:-1]
