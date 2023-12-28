@@ -2,7 +2,7 @@ version: "3.1"
 
 intents:
   - greet
-  - bot_challenge
+#  - bot_challenge
   - choose_number
   - choose_template
   - choose_search_by
@@ -12,8 +12,8 @@ responses:
   utter_greet:
   - text: "Привет, я - бот для поиска книг\nВы хотите найти определенную книгу, подобрать по жанру или вам что-то порекомендовать?"
 
-  utter_iamabot:
-  - text: "Я бот, сделанный на RASA"
+#  utter_iamabot:
+#  - text: "Я бот, сделанный на RASA"
 
   utter_choose_search_by:
     - text: "Вы хотите искать по автору или по названию?"
@@ -34,15 +34,27 @@ slots:
       - жанр
       - рекомендация
       - поиск
+    mappings:
+      - type: from_entity
+        entity: TEMPLATE
   ASK:
     type: list
+    mappings:
+      - type: from_entity
+        entity: ASK
   NUMBER:
     type: text
+    mappings:
+      - type: from_entity
+        entity: NUMBER
   SEARCH_BY:
     type: categorical
     values:
       - автор
       - название
+    mappings:
+      - type: from_entity
+        entity: SEARCH_BY
 
 actions:
   - action_show_popular_books
@@ -54,6 +66,9 @@ actions:
   - action_show_books_by_author
   - action_show_selected_book
 #  - action_give_book
+  - utter_greet
+  - utter_choose_search_by
+  - utter_your_ask
 
 session_config:
   session_expiration_time: 20
