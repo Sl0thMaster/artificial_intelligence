@@ -2,9 +2,4 @@
 .idea/
 test.py
 *.pyc
-recommended_books.txt
-search_results.txt
-author_books.txt
-books_by_author.txt
-subgenres.txt
-genres.txt
+actions/cache
