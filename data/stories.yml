@@ -4,8 +4,6 @@ stories:
 
 - story: recommendation
   steps:
-  - intent: greet
-  - action: utter_greet
   - intent: choose_template
   - slot_was_set:
     - TEMPLATE: рекомендация
@@ -15,8 +13,6 @@ stories:
 
 - story: find_by_genre
   steps:
-  - intent: greet
-  - action: utter_greet
   - intent: choose_template
   - slot_was_set:
     - TEMPLATE: жанр
@@ -30,8 +26,6 @@ stories:
 
 - story: search_by_title
   steps:
-  - intent: greet
-  - action: utter_greet
   - intent: choose_template
   - slot_was_set:
     - TEMPLATE: поиск
@@ -48,8 +42,6 @@ stories:
 
 - story: search_by_author
   steps:
-  - intent: greet
-  - action: utter_greet
   - intent: choose_template
   - slot_was_set:
     - TEMPLATE: поиск
