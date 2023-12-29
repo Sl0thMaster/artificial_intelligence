@@ -1,7 +1,7 @@
 version: "3.1"
 
 intents:
-  - greet
+  - start
 #  - bot_challenge
   - choose_number
   - choose_template
@@ -9,7 +9,7 @@ intents:
   - ask
 
 responses:
-  utter_greet:
+  utter_start:
   - text: "Привет, я - бот для поиска книг\nВы хотите найти определенную книгу, подобрать по жанру или вам что-то порекомендовать?"
 
 #  utter_iamabot:
@@ -66,7 +66,7 @@ actions:
   - action_show_books_by_author
   - action_show_selected_book
 #  - action_give_book
-  - utter_greet
+  - utter_start
   - utter_choose_search_by
   - utter_your_ask
 
