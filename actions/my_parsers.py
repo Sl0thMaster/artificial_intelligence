@@ -55,7 +55,9 @@ def book_info(url):
     for i in range(len(row_genres)):
         if i % 2 == 1:
             genres.append(row_genres[i].contents[0])
-    return title, author, genres, rating, rating_count, times_read, description
+    link = soup.find('div', class_='book_img').find('img')['src']
+    img_link = 'https://flibusta.club' + link
+    return title, author, genres, rating, rating_count, times_read, description, img_link
 
 
 def search(ask):
