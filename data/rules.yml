@@ -10,4 +10,5 @@ rules:
 - rule: start
   steps:
   - intent: start
+  - action: action_reset_slots
   - action: utter_start

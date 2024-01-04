@@ -57,6 +57,7 @@ slots:
         entity: SEARCH_BY
 
 actions:
+  - action_reset_slots
   - action_show_popular_books
   - action_show_genres
   - action_show_subgenres
@@ -71,5 +72,5 @@ actions:
   - utter_your_ask
 
 session_config:
-  session_expiration_time: 20
+  session_expiration_time: 5
   carry_over_slots_to_new_session: true
