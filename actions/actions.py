@@ -1,6 +1,7 @@
 from typing import Any, Text, Dict, List
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
+from rasa_sdk.events import SlotSet
 from my_parsers import *
 
 choose_number = 'Выберите номер из списка ниже:\n'
@@ -48,6 +49,9 @@ class ActionShowSubgenres(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        if not tracker.get_slot("NUMBER"):
+            dispatcher.utter_message(text='action_show_subgenres' + ' get None')
+            return []
         choice = int(tracker.get_slot("NUMBER"))
         update_genres_and_subgenres()
         with open("cache/genres.txt", "r", encoding='utf-8') as f:
@@ -76,6 +80,9 @@ class ActionShowBooksBySubgenre(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        if not tracker.get_slot("NUMBER"):
+            dispatcher.utter_message(text='action_show_books_by_subgenre' + ' get None')
+            return []
         choice = int(tracker.get_slot("NUMBER"))
         with open("cache/subgenres.txt", "r", encoding='utf-8') as f:
             subgenres = f.readlines()
@@ -97,6 +104,9 @@ class ActionShowFoundBooks(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        if not tracker.get_slot("ASK"):
+            dispatcher.utter_message(text='action_show_found_books' + ' get None')
+            return []
         ask = tracker.get_slot("ASK")
         question = ''
         for word in ask:
@@ -123,6 +133,9 @@ class ActionShowFoundAuthors(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        if not tracker.get_slot("ASK"):
+            dispatcher.utter_message(text='action_show_found_authors' + ' get None')
+            return []
         ask = tracker.get_slot("ASK")
         question = ''
         for word in ask:
@@ -149,6 +162,9 @@ class ActionShowBooksByAuthor(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        if not tracker.get_slot("NUMBER"):
+            dispatcher.utter_message(text='action_show_books_by_author' + ' get None')
+            return []
         choice = int(tracker.get_slot("NUMBER"))
         with open("cache/search_results.txt", "r", encoding='utf-8') as f:
             results = f.readlines()
@@ -170,11 +186,14 @@ class ActionShowSelectedBook(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        if not (tracker.get_slot("NUMBER") and tracker.get_slot("TEMPLATE")):
+            dispatcher.utter_message(text='action_show_selected_book' + ' get None')
+            return []
         choice = int(tracker.get_slot("NUMBER"))
         template = tracker.get_slot("TEMPLATE")
         search_by = tracker.get_slot("SEARCH_BY")
         if template == 'жанр':
-            with open("cache/subgenres.txt", "r", encoding='utf-8') as f:
+            with open("cache/recommended_books.txt", "r", encoding='utf-8') as f:
                 books = f.readlines()
                 url = books[choice - 1][books[choice - 1].rfind(' - ') + 3:-1]
         elif template == 'рекомендация':
@@ -190,7 +209,7 @@ class ActionShowSelectedBook(Action):
                 with open("cache/books_by_author.txt", "r", encoding='utf-8') as f:
                     books = f.readlines()
                     url = books[choice - 1][books[choice - 1].rfind(' - ') + 3:-1]
-        title, author, genres, rating, rating_count, times_read, description = book_info(url)
+        title, author, genres, rating, rating_count, times_read, description, img_link = book_info(url)
         utter = f'{title} - {author}\n'
         utter += 'Жанры: '
         utter += genres[0]
@@ -204,8 +223,20 @@ class ActionShowSelectedBook(Action):
         utter += 'Прочитано ' + times_read + '\n'
         if description != '':
             utter += 'Описание: ' + description
-        dispatcher.utter_message(text=utter)
+        dispatcher.utter_message(text=utter, image=img_link)
         return []
 
+
+class ResetSlots(Action):
+    def name(self) -> Text:
+        return "action_reset_slots"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        return [SlotSet("TEMPLATE", None),
+                SlotSet("ASK", None),
+                SlotSet("NUMBER", None),
+                SlotSet("SEARCH_BY", None)]
 
 # - action_give_book
