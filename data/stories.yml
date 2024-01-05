@@ -2,10 +2,13 @@ version: "3.1"
 
 stories:
 
+- story: choose_template
+  steps:
+  - action: utter_start
+  - intent: choose_template
+
 - story: recommendation
   steps:
-  - intent: start
-  - action: utter_start
   - intent: choose_template
   - slot_was_set:
     - TEMPLATE: рекомендация
@@ -15,8 +18,6 @@ stories:
 
 - story: find_by_genre
   steps:
-  - intent: start
-  - action: utter_start
   - intent: choose_template
   - slot_was_set:
     - TEMPLATE: жанр
@@ -28,13 +29,15 @@ stories:
   - intent: choose_number
   - action: action_show_selected_book
 
-- story: search_by_title
+- story: search
   steps:
-  - intent: start
-  - action: utter_start
   - intent: choose_template
   - slot_was_set:
     - TEMPLATE: поиск
+  - action: utter_choose_search_by
+
+- story: search_by_title
+  steps:
   - action: utter_choose_search_by
   - intent: choose_search_by
   - slot_was_set:
@@ -48,11 +51,6 @@ stories:
 
 - story: search_by_author
   steps:
-  - intent: start
-  - action: utter_start
-  - intent: choose_template
-  - slot_was_set:
-    - TEMPLATE: поиск
   - action: utter_choose_search_by
   - intent: choose_search_by
   - slot_was_set:
