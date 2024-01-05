@@ -61,7 +61,7 @@ def book_info(url):
 
 
 def search(ask):
-    url = 'https://flibusta.club/booksearch?ask=' + ask
+    url = 'https://flibusta.club/booksearch?ask=' + ask.lower()
     response = requests.get(url)
     soup = bs(response.content, 'html.parser')
     books = soup.find('li').find_all('a', class_=lambda x: x != 'active')
