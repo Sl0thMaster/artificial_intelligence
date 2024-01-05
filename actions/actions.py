@@ -5,6 +5,7 @@ from rasa_sdk.events import SlotSet
 from my_parsers import *
 
 choose_number = 'Выберите номер из списка ниже:\n'
+message_length = 3700
 
 
 class ActionShowPopularBooks(Action):
@@ -108,10 +109,10 @@ class ActionShowFoundBooks(Action):
             dispatcher.utter_message(text='action_show_found_books' + ' get None')
             return []
         ask = tracker.get_slot("ASK")
-        question = ''
-        for word in ask:
-            question += word + ' '
-        search(question)
+        if not ask:
+            dispatcher.utter_message(text='Ваш запрос пуст')
+            return []
+        search(ask)
         with open("cache/search_results.txt", "r", encoding='utf-8') as f:
             results = f.readlines()
         utter = ''
@@ -137,10 +138,10 @@ class ActionShowFoundAuthors(Action):
             dispatcher.utter_message(text='action_show_found_authors' + ' get None')
             return []
         ask = tracker.get_slot("ASK")
-        question = ''
-        for word in ask:
-            question += word + ' '
-        search(question)
+        if not ask:
+            dispatcher.utter_message(text='Ваш запрос пуст')
+            return []
+        search(ask)
         with open("cache/search_results.txt", "r", encoding='utf-8') as f:
             results = f.readlines()
         utter = ''
@@ -172,10 +173,17 @@ class ActionShowBooksByAuthor(Action):
         books_by_author(link)
         with open("cache/books_by_author.txt", "r", encoding='utf-8') as f:
             books = f.readlines()
-        utter = ''
-        for i in range(len(books)):
-            utter += str(i + 1) + ' ' + books[i][:books[i].rfind(' - ')] + '\n'
-        dispatcher.utter_message(text=choose_number + utter)
+        utters = []
+        utter = choose_number
+        iterator = 0
+        while iterator < len(books):
+            while len(utter) < message_length and iterator < len(books):
+                utter += str(iterator + 1) + ' ' + books[iterator][:books[iterator].rfind(' - ')] + '\n'
+                iterator += 1
+            utters.append(utter)
+            utter = ''
+        for utter in utters:
+            dispatcher.utter_message(text=utter)
         return []
 
 
@@ -223,7 +231,9 @@ class ActionShowSelectedBook(Action):
         utter += 'Прочитано ' + times_read + '\n'
         if description != '':
             utter += 'Описание: ' + description
-        dispatcher.utter_message(text=utter, image=img_link)
+        # dispatcher.utter_message(image=img_link, caption=utter)
+        dispatcher.utter_message(image=img_link)
+        dispatcher.utter_message(text=utter)
         return []
 
 
