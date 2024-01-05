@@ -20,10 +20,6 @@ responses:
 
   utter_your_ask:
     - text: "Ваш запрос?"
-#
-#  book_info:
-#    - text: {book_info_text}
-#      image: {book_info_link}
 
 entities:
   - TEMPLATE
