@@ -231,7 +231,6 @@ class ActionShowSelectedBook(Action):
         utter += 'Прочитано ' + times_read + '\n'
         if description != '':
             utter += 'Описание: ' + description
-        # dispatcher.utter_message(image=img_link, caption=utter)
         dispatcher.utter_message(image=img_link)
         dispatcher.utter_message(text=utter)
         return []
