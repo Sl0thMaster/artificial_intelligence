@@ -232,11 +232,19 @@ class ActionShowSelectedBook(Action):
         if description != '':
             utter += 'Описание: ' + description
         dispatcher.utter_message(image=img_link)
-        dispatcher.utter_message(text=utter)
-        return []
+        buttons = []
+        extensions = ['fb2', 'epub', 'rtf', 'txt']
+        for extension in extensions:
+            # link = url + 'download/format=' + extension
+            # if extension != 'epub':
+            #     link += '.zip'
+            # buttons.append({"title": extension, "payload": '/choose_extension{{\'DOWNLOAD_LINK\'\'%s\'}}' % link})
+            buttons.append({"title": extension, "payload": '/%s' % extension})
+        dispatcher.utter_message(text=utter, buttons=buttons)
+        return [SlotSet("DOWNLOAD_LINK", url + 'download/format=')]
 
 
-class ResetSlots(Action):
+class ActionResetSlots(Action):
     def name(self) -> Text:
         return "action_reset_slots"
 
@@ -246,6 +254,79 @@ class ResetSlots(Action):
         return [SlotSet("TEMPLATE", None),
                 SlotSet("ASK", None),
                 SlotSet("NUMBER", None),
-                SlotSet("SEARCH_BY", None)]
+                SlotSet("SEARCH_BY", None),
+                SlotSet("DOWNLOAD_LINK", None)]
 
-# - action_give_book
+
+# class ActionGiveBook(Action):
+#     def name(self) -> Text:
+#         return "action_give_book"
+#
+#     def run(self, dispatcher: CollectingDispatcher,
+#             tracker: Tracker,
+#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+#         link = tracker.get_slot("DOWNLOAD_LINK")
+#         if not link:
+#             dispatcher.utter_message(text="Не удалось получить ссылку на скачивание")
+#             return []
+#         dispatcher.utter_message(text="Выбранная книга:", attachment=link)
+#         return []
+
+class FB2(Action):
+    def name(self) -> Text:
+        return "action_fb2"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        link = tracker.get_slot("DOWNLOAD_LINK")
+        if not link:
+            dispatcher.utter_message(text="Не удалось получить ссылку на скачивание")
+            return []
+        dispatcher.utter_message(text="Выбранная книга:", attachment=link + 'fb2.zip')
+        return []
+
+
+class EPUB(Action):
+    def name(self) -> Text:
+        return "action_epub"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        link = tracker.get_slot("DOWNLOAD_LINK")
+        if not link:
+            dispatcher.utter_message(text="Не удалось получить ссылку на скачивание")
+            return []
+        dispatcher.utter_message(text="Выбранная книга:", attachment=link + 'epub')
+        return []
+
+
+class RTF(Action):
+    def name(self) -> Text:
+        return "action_rtf"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        link = tracker.get_slot("DOWNLOAD_LINK")
+        if not link:
+            dispatcher.utter_message(text="Не удалось получить ссылку на скачивание")
+            return []
+        dispatcher.utter_message(text="Выбранная книга:", attachment=link + 'rtf.zip')
+        return []
+
+
+class TXT(Action):
+    def name(self) -> Text:
+        return "action_txt"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        link = tracker.get_slot("DOWNLOAD_LINK")
+        if not link:
+            dispatcher.utter_message(text="Не удалось получить ссылку на скачивание")
+            return []
+        dispatcher.utter_message(text="Выбранная книга:", attachment=link + 'txt.zip')
+        return []
