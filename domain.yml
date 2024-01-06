@@ -6,6 +6,11 @@ intents:
   - choose_number
   - choose_template
   - choose_search_by
+#  - choose_extension
+  - fb2
+  - epub
+  - rtf
+  - txt
   - ask
 
 responses:
@@ -26,8 +31,16 @@ entities:
   - ASK
   - NUMBER
   - SEARCH_BY
+#  - DOWNLOAD_LINK
 
 slots:
+  DOWNLOAD_LINK:
+    type: text
+    mappings:
+      - type: custom
+        action: action_show_selected_book
+#      - type: from_entity
+#        entity: DOWNLOAD_LINK
   TEMPLATE:
     type: categorical
     values:
@@ -67,6 +80,10 @@ actions:
   - action_show_books_by_author
   - action_show_selected_book
 #  - action_give_book
+  - action_fb2
+  - action_epub
+  - action_rtf
+  - action_txt
   - utter_start
   - utter_choose_search_by
   - utter_your_ask
