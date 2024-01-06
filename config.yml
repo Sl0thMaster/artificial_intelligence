@@ -32,6 +32,7 @@ policies:
 # # See https://rasa.com/docs/rasa/policies for more information.
    - name: MemoizationPolicy
    - name: RulePolicy
+     max_history: 10
    - name: UnexpecTEDIntentPolicy
      max_history: 18
      epochs: 100
