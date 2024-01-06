@@ -12,3 +12,23 @@ rules:
   - intent: start
   - action: action_reset_slots
   - action: utter_start
+
+- rule: give_book_fb2
+  steps:
+  - intent: fb2
+  - action: action_fb2
+
+- rule: give_book_epub
+  steps:
+  - intent: epub
+  - action: action_epub
+
+- rule: give_book_rtf
+  steps:
+  - intent: rtf
+  - action: action_rtf
+
+- rule: give_book_txt
+  steps:
+  - intent: txt
+  - action: action_txt
