@@ -2,11 +2,9 @@ version: "3.1"
 
 intents:
   - start
-#  - bot_challenge
   - choose_number
   - choose_template
   - choose_search_by
-#  - choose_extension
   - fb2
   - epub
   - rtf
@@ -16,9 +14,6 @@ intents:
 responses:
   utter_start:
   - text: "Привет, я - бот для поиска книг\nВы хотите найти определенную книгу, подобрать по жанру или вам что-то порекомендовать?"
-
-#  utter_iamabot:
-#  - text: "Я бот, сделанный на RASA"
 
   utter_choose_search_by:
     - text: "Вы хотите искать по автору или по названию?"
@@ -31,7 +26,6 @@ entities:
   - ASK
   - NUMBER
   - SEARCH_BY
-#  - DOWNLOAD_LINK
 
 slots:
   DOWNLOAD_LINK:
@@ -39,8 +33,6 @@ slots:
     mappings:
       - type: custom
         action: action_show_selected_book
-#      - type: from_entity
-#        entity: DOWNLOAD_LINK
   TEMPLATE:
     type: categorical
     values:
@@ -79,7 +71,6 @@ actions:
   - action_show_found_authors
   - action_show_books_by_author
   - action_show_selected_book
-#  - action_give_book
   - action_fb2
   - action_epub
   - action_rtf
