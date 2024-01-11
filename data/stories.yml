@@ -15,8 +15,6 @@ stories:
   - action: action_show_popular_books
   - intent: choose_number
   - action: action_show_selected_book
-#  - intent: choose_extension
-#  - action: action_give_book
 
 - story: find_by_genre
   steps:
@@ -30,8 +28,6 @@ stories:
   - action: action_show_books_by_subgenre
   - intent: choose_number
   - action: action_show_selected_book
-#  - intent: choose_extension
-#  - action: action_give_book
 
 - story: search
   steps:
@@ -52,8 +48,6 @@ stories:
   - action: action_show_found_books
   - intent: choose_number
   - action: action_show_selected_book
-#  - intent: choose_extension
-#  - action: action_give_book
 
 - story: search_by_author
   steps:
@@ -73,5 +67,3 @@ stories:
   - action: action_show_books_by_author
   - intent: choose_number
   - action: action_show_selected_book
-#  - intent: choose_extension
-#  - action: action_give_book
