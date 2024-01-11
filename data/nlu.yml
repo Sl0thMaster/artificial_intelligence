@@ -5,17 +5,6 @@ nlu:
   examples: |
     - /start
 
-#- intent: bot_challenge
-#  examples: |
-#    - ты бот?
-#    - ты человек?
-#    - я говорю с ботом?
-#    - я говорю с человеком?
-#    - кто ты?
-#    - что ты?
-#    - что ты такое?
-#    - кто ты такой?
-
 - intent: choose_number
   examples: |
     - [1](NUMBER:1)
