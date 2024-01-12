@@ -8,6 +8,12 @@ rules:
   - action: action_reset_slots
   - action: utter_start
 
+- rule: chitchat
+  steps:
+  - intent: chitchat
+  - action: action_reset_slots
+  - action: utter_chitchat
+
 - rule: give_book_fb2
   steps:
   - intent: fb2
