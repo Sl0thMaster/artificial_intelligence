@@ -13,6 +13,9 @@ pipeline:
      epochs: 250
      constrain_similarities: true
    - name: EntitySynonymMapper
+   - name: ResponseSelector
+     epochs: 300
+     retrieval_intent: chitchat
 
 policies:
    - name: MemoizationPolicy
