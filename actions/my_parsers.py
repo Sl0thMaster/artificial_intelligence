@@ -2,21 +2,13 @@ import requests
 from bs4 import BeautifulSoup as bs
 import random
 
-BOOKS_TO_SHOW = 12
-PAGES_TO_PARSE = 10
+BOOKS_TO_SHOW = 7
 
 
 def parse_recommended_books(url):
     response = requests.get(url)
     soup = bs(response.content, 'html.parser')
     books = soup.find_all('div', class_='item')
-    for i in range(PAGES_TO_PARSE - 1):
-        response = requests.get(url + '?page=' + str(i))
-        if response.status_code == 200:
-            soup = bs(response.content, 'html.parser')
-            new_books = soup.find_all('div', class_='item')
-            for book in new_books:
-                books.append(book)
     selected_book_numbers = []
     while len(selected_book_numbers) < BOOKS_TO_SHOW:
         book_number = random.randint(0, len(books) - 1)
