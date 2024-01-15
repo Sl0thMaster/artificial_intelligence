@@ -258,20 +258,6 @@ class ActionResetSlots(Action):
                 SlotSet("DOWNLOAD_LINK", None)]
 
 
-# class ActionGiveBook(Action):
-#     def name(self) -> Text:
-#         return "action_give_book"
-#
-#     def run(self, dispatcher: CollectingDispatcher,
-#             tracker: Tracker,
-#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-#         link = tracker.get_slot("DOWNLOAD_LINK")
-#         if not link:
-#             dispatcher.utter_message(text="Не удалось получить ссылку на скачивание")
-#             return []
-#         dispatcher.utter_message(text="Выбранная книга:", attachment=link)
-#         return []
-
 class FB2(Action):
     def name(self) -> Text:
         return "action_fb2"
