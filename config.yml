@@ -4,7 +4,7 @@ language: ru
 
 pipeline:
    - name: WhitespaceTokenizer
-     case_sensitive: false
+     case_sensitive: False
    - name: CountVectorsFeaturizer
    - name: CountVectorsFeaturizer
      analyzer: char_wb
@@ -12,15 +12,15 @@ pipeline:
      max_ngram: 15
    - name: DIETClassifier
      epochs: 300
-     constrain_similarities: true
+     constrain_similarities: True
    - name: EntitySynonymMapper
 
 policies:
    - name: MemoizationPolicy
-#     max_history: 20
-     epochs: 200
+     max_history: 4
+     epochs: 300
    - name: RulePolicy
-     core_fallback_threshold: 0.2
+     core_fallback_threshold: 0.7
      core_fallback_action_name: action_default_fallback
      enable_fallback_prediction: true
 #     max_history: 10
@@ -28,6 +28,6 @@ policies:
 #     max_history: 18
 #     epochs: 100
    - name: TEDPolicy
-     max_history: 10
-     epochs: 200
-     constrain_similarities: true
+     max_history: 4
+     epochs: 300
+     constrain_similarities: True
